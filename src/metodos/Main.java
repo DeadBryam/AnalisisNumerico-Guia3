@@ -13,8 +13,13 @@ package metodos;
 public class Main {
     
     public static void main(String[] args) {
-      
         
+        Muller m =new Muller();
+        m.setFuncion("e^-x-x");
+        m.setX0(0);
+        m.setX1(0.5);
+        m.setX2(1);
+        m.calcularRaiz();
     }
     
     

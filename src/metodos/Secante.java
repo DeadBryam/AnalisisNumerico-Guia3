@@ -15,10 +15,10 @@ public class Secante {
 
     double x0, x1, xr;
     private final String xrf = "xb - ((fxb * (xa - xb))/(fxa - fxb))";
-    private final String error = "((xr-x1)/xr)*100";
     private String funcion;
     JEP jep = new JEP();
-    double tolenrancia = 0.05;
+    Evaluador ev = new Evaluador();
+    
 
     // <editor-fold defaultstate="collapsed" desc="Getters y Setters"> 
     public String getFuncion() {
@@ -91,11 +91,11 @@ public class Secante {
             fxa = evaluar(x0, funcion);
             fxb = evaluar(x1, funcion);
             xr = evaluar(x1, fxb, x0, fxa, xrf);
-                errorx = evaluar(xr, x1, this.error);
+                errorx = ev.calcularError(xr, x1);
             System.out.println(xr+" -- "+errorx);
             x0 = x1;
             x1 = xr;
-        } while (Math.abs(errorx) > tolenrancia);
+        } while (Math.abs(errorx) > ev.tolenrancia);
 
     }
 }
