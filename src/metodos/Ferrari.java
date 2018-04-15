@@ -12,9 +12,9 @@ import java.util.List;
  *
  * @author doratt
  */
-public class ferrari {
+public class Ferrari {
     double U, V, W, P, Q, R, x1, x2, x3, x4;
-    tartaglia tar = new tartaglia();
+    Tartaglia tar = new Tartaglia();
     
     public List<Double> ferrari(double a, double b, double c, double d){
         List<Double> raices = new ArrayList<>();

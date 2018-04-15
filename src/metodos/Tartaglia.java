@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author doratt
  */
-public class tartaglia {
+public class Tartaglia {
 
     double G, H, D, a;
 
