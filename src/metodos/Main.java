@@ -15,11 +15,7 @@ import java.util.Arrays;
 public class Main {
     
     public static void main(String[] args) {
-      
-        Horner hor = new  Horner();
-        
-        System.out.println(Arrays.toString(hor.horner(-1.2, new double[]{1,1,-2,-6,-4})));
-        
+
     }
     
     
