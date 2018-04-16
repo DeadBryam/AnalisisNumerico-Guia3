@@ -51,14 +51,14 @@ public class Tartaglia {
     public List<Object> calcularRaizRealY2Complejas() {
         double x1, x2, x3, P, Q;
         List<Object> raices = new ArrayList<>();
-        P= Math.cbrt((-G + Math.sqrt(D)));
-        Q= Math.cbrt((-G - Math.sqrt(D)));
+        P = Math.cbrt((-G + Math.sqrt(D)));
+        Q = Math.cbrt((-G - Math.sqrt(D)));
         x1 = (P + Q) - (this.a / 3);
         x2 = ((P + Q) / -2) - (this.a / 3);
         x3 = ((P + Q) / -2) - (this.a / 3);
         raices.add(String.valueOf(x1));
-        raices.add(x2+" + "+String.valueOf(P+Q));
-        raices.add(x3+" - "+String.valueOf(P+Q));
+        raices.add(x3 + " + " + Math.abs(((P + Q) / 2 * Math.sqrt(3))) + "i");
+        raices.add(x3 + " - " + Math.abs(((P + Q) / 2 * Math.sqrt(3))) + "i");
 
         return raices;
     }

@@ -41,48 +41,77 @@ public class Evaluador {
         String[] f;
         int mayor = 0;
 
-        System.out.println(funcion);
         f = funcion.split(" [+,-] ");
+        filtrado = String.join(separador, f);
+        f = filtrado.split("[.]");
         filtrado = String.join(separador, f);
         f = filtrado.split(" \\d+");
         filtrado = String.join(separador, f);
-        f = filtrado.split("x.");
+        f = filtrado.split("x");
+        filtrado = String.join(separador, f);
+        filtrado = filtrado.replace("^", "");
+        f = filtrado.split(" ");
 
         for (String fl : f) {
-            if (!fl.isEmpty() && Integer.parseInt(fl.trim()) > mayor) {
-                mayor = Integer.parseInt(fl.trim());
+            if (!fl.trim().isEmpty()) {
+                if (Integer.parseInt(fl.trim()) > mayor) {
+                    mayor = Integer.parseInt(fl.trim());
+                }
             }
         }
         return mayor;
     }
     
-    public static double[] obtenerCoeficientes(int grado, String funcion) {
+    public double [] obtenerCoeficientes(int grado, String funcion) {
+        grado++;
         String[] f = funcion.split(" [+,-] ");
         double[] coef = new double[grado];
-        String filtro = String.join(" ", f);
-
-        for (int i = grado; i > 0; i--) {
+        for (int i = 2; i < grado; i++) {
             for (String fl : f) {
-                if (fl.contains("x^" + i)) {
-                    if (funcion.matches(".*- \\d+x." + i + ".*")) {
-                        coef[grado - i] = Double.parseDouble("-" + fl.replace("x^" + i, ""));
-                    } else if (fl.replace("x^" + i, "").isEmpty()) {
-                        coef[grado - i] = 1;
+                if (fl.matches("\\d+") || fl.matches("\\d+[.]\\d+")) {
+                    if (funcion.matches(".*- " + fl.trim() + ".*")) {
+                        coef[grado - 1] = Double.parseDouble(fl.trim()) * (-1);
                     } else {
-                        coef[grado - i] = Double.parseDouble(fl.replace("x^" + i, ""));
+                        coef[grado - 1] = Double.parseDouble(fl.trim());
                     }
-                } else if (fl.matches("\\d")) {
-                    if (funcion.matches(".*- \\d+\\b.*")) {
-                        coef[grado - 1] = Double.parseDouble("-" + fl);
+                }
+
+                if (fl.matches("\\d+x") || fl.matches("\\d+[.]\\d+x")) {
+                    if (funcion.matches(".*- " + fl.trim() + ".*")) {
+                        coef[grado - 2] = Double.parseDouble(fl.replace("x", "")) * (-1);
                     } else {
-                        coef[grado - 1] = Double.parseDouble(fl);
+                        coef[grado - 2] = Double.parseDouble(fl.replace("x", ""));
+                    }
+                }
+
+                if (fl.matches("x")) {
+                    if (funcion.matches(".*- " + fl.trim() + ".*")) {
+                        coef[grado - 2] = (-1);
+                    } else {
+                        coef[grado - 2] = 1;
+                    }
+                }
+
+                if (fl.trim().matches("\\d+x." + i) || fl.trim().matches("\\d+[.]\\d+x." + i)) {
+                    System.out.println(fl);
+                    if (funcion.matches(".*- " + fl.trim().replace("^", "\\^") + ".*")) {
+                        coef[grado - (i + 1)] = Double.parseDouble(fl.replaceAll("x." + i, "")) * (-1);
+                    } else {
+                        coef[grado - (i + 1)] = Double.parseDouble(fl.replaceAll("x." + i, ""));
+                    }
+                }
+
+                if (fl.trim().matches("x." + i)) {
+                    if (funcion.matches(".*- " + fl.trim() + ".*")) {
+                        coef[grado - (i + 1)] = (-1);
+                    } else {
+                        coef[grado - (i + 1)] = 1;
                     }
                 }
             }
-            if (String.valueOf(coef[grado - i]).isEmpty()) {
-                coef[grado - i] = 0.0;
-            }
         }
+
         return coef;
     }
+    
 }

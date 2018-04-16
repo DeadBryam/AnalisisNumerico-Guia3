@@ -5,6 +5,9 @@
  */
 package metodos;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import org.nfunk.jep.JEP;
 
 /**
@@ -80,8 +83,9 @@ public class Secante {
         return jep.getValue();
     }
 
-    public void n() {
+    public DefaultTableModel n() {
         double fxa, fxb, errorx;
+        DefaultTableModel dtm = new DefaultTableModel(new Object[]{"X0","X1","XR","ERROR"},0);
 
         if (!evaluarFx()) {
             funcion = "(" + funcion + ")*-1";
@@ -92,10 +96,11 @@ public class Secante {
             fxb = evaluar(x1, funcion);
             xr = evaluar(x1, fxb, x0, fxa, xrf);
                 errorx = ev.calcularError(xr, x1);
-            System.out.println(xr+" -- "+errorx);
+                dtm.addRow(new Object[]{x0,x1,xr,errorx});
             x0 = x1;
             x1 = xr;
         } while (Math.abs(errorx) > ev.tolenrancia);
 
+            return dtm;
     }
 }

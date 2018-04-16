@@ -24,6 +24,7 @@ public class Ferrari {
         U = Double.parseDouble(String.valueOf(tar.calcularRaices(tar.calcularDiscriminante((-P/2.0), -R, (4*P*R-Math.pow(Q, 2))/8)).get(0)));
         V=Math.sqrt((2*U)-P);
         W=Math.sqrt(Math.pow(U, 2)-R);
+        System.out.println(Math.pow(V, 2)-4*(U-W));
         x1=((V+Math.sqrt(Math.pow(V, 2)-4*(U-W)))/2)-a/4.0;
         x2=((V-Math.sqrt(Math.pow(V, 2)-4*(U-W)))/2)-a/4.0;
         x3=((-V+Math.sqrt(Math.pow(V, 2)-4*(U-W)))/2)-a/4.0;

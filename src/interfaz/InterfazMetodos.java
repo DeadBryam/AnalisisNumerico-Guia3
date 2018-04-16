@@ -5,11 +5,25 @@
  */
 package interfaz;
 
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import metodos.Evaluador;
+import metodos.Ferrari;
+import metodos.Secante;
+import metodos.Tartaglia;
+
 /**
  *
  * @author villa
  */
 public class InterfazMetodos extends javax.swing.JFrame {
+
+    Evaluador eva = new Evaluador();
+    String funcionMoficiada;
+    Secante s = new Secante();
 
     /**
      * Creates new form InterfazMetodos
@@ -30,30 +44,48 @@ public class InterfazMetodos extends javax.swing.JFrame {
     private void initComponents() {
 
         cmbFunciones = new javax.swing.JComboBox<>();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        btnCalcular = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
-        pnlSecante = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        pnlFunciones = new javax.swing.JPanel();
         pnlTartaglia = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtTartaglia1 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtTartaglia2 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtTartaglia3 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtDicriminante = new javax.swing.JTextField();
+        pnlSecante = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtRaizSecante = new javax.swing.JTextField();
+        txtErrorSecante = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         pnlFerrari = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        pnlHorner = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtFerrari3 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtFerrari2 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtFerrari1 = new javax.swing.JTextField();
+        txtFerrari4 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        pnlHorner = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         pnlMuller = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        pnlBairstow = new javax.swing.JLabel();
+        pnlBairstow = new javax.swing.JPanel();
+        lblBairstow = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 255, 102));
 
-        cmbFunciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elija una funcion", "x^3 + 3x - 1", "x^3 - 6.45x^2 - 49.92x - 76.69", "x^4 + x^3 + 0.56x^2 - 1.44x - 2.88", "x^4 - 3x^2 + 5x + 2", "x^5 - 3x^4 - 23x^3 + 55x^2 +74x - 120", "x^6 - 7x^4 + x^3 - 1", "ln(1+x) - cos(x)", "10sen(x) + 3cos(x)", "e^3(x-1) - ln(x-1)2 + 1", "cos(0.785 - x(1+x^2)^1/2 )" }));
+        cmbFunciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elija una funcion", "x^3 + 3x - 1", "x^3 - 4.65x^2 - 49.92x - 76.69", "x^4 + x^3 + 0.56x^2 - 1.44x - 2.88", "x^4 - 3x^2 + 5x + 2", "x^5 - 3x^4 - 23x^3 + 55x^2 + 74x - 120", "x^6 - 7x^4 + x^3 - 1", "ln(1+x) - cos(x)", "10sen(x) + 3cos(x)", "e^3(x-1) - ln(x-1)2 + 1", "cos(0.785 - x(1+x^2)^1/2 )" }));
         cmbFunciones.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbFuncionesItemStateChanged(evt);
@@ -65,43 +97,95 @@ public class InterfazMetodos extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton1.setText("Calcular");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCalcular.setText("Calcular");
+        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                btnCalcularActionPerformed(evt);
             }
         });
 
         jScrollPane1.setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
-
-        pnlSecante.setBackground(new java.awt.Color(255, 255, 255));
-        pnlSecante.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pnlSecante.setPreferredSize(new java.awt.Dimension(870, 150));
-
-        jLabel2.setText("Tartaglia");
-
-        javax.swing.GroupLayout pnlSecanteLayout = new javax.swing.GroupLayout(pnlSecante);
-        pnlSecante.setLayout(pnlSecanteLayout);
-        pnlSecanteLayout.setHorizontalGroup(
-            pnlSecanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSecanteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(816, Short.MAX_VALUE))
-        );
-        pnlSecanteLayout.setVerticalGroup(
-            pnlSecanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSecanteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(123, Short.MAX_VALUE))
-        );
+        pnlFunciones.setBackground(new java.awt.Color(0, 0, 0));
 
         pnlTartaglia.setBackground(new java.awt.Color(255, 255, 255));
         pnlTartaglia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pnlTartaglia.setPreferredSize(new java.awt.Dimension(870, 150));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Tartaglia");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setText("Raiz:");
+
+        txtTartaglia1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setText("Raiz:");
+
+        txtTartaglia2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setText("Raiz:");
+
+        txtTartaglia3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setText("Discriminante: ");
+
+        txtDicriminante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        javax.swing.GroupLayout pnlTartagliaLayout = new javax.swing.GroupLayout(pnlTartaglia);
+        pnlTartaglia.setLayout(pnlTartagliaLayout);
+        pnlTartagliaLayout.setHorizontalGroup(
+            pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTartagliaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2)
+                    .addGroup(pnlTartagliaLayout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtTartaglia2, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
+                    .addGroup(pnlTartagliaLayout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtTartaglia3))
+                    .addGroup(pnlTartagliaLayout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtTartaglia1)))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtDicriminante, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(183, 183, 183))
+        );
+        pnlTartagliaLayout.setVerticalGroup(
+            pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTartagliaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTartaglia1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDicriminante, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTartaglia2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTartaglia3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(380, 380, 380))
+        );
+
+        pnlSecante.setBackground(new java.awt.Color(255, 255, 255));
+        pnlSecante.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlSecante.setPreferredSize(new java.awt.Dimension(870, 150));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Secante");
@@ -112,49 +196,78 @@ public class InterfazMetodos extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Error:");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtRaizSecante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtErrorSecante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        javax.swing.GroupLayout pnlTartagliaLayout = new javax.swing.GroupLayout(pnlTartaglia);
-        pnlTartaglia.setLayout(pnlTartagliaLayout);
-        pnlTartagliaLayout.setHorizontalGroup(
-            pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTartagliaLayout.createSequentialGroup()
+        jScrollPane3.setViewportView(jTable1);
+
+        javax.swing.GroupLayout pnlSecanteLayout = new javax.swing.GroupLayout(pnlSecante);
+        pnlSecante.setLayout(pnlSecanteLayout);
+        pnlSecanteLayout.setHorizontalGroup(
+            pnlSecanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecanteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlSecanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addGroup(pnlTartagliaLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlTartagliaLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(539, Short.MAX_VALUE))
+                    .addGroup(pnlSecanteLayout.createSequentialGroup()
+                        .addGroup(pnlSecanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, 0)
+                        .addGroup(pnlSecanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRaizSecante, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtErrorSecante, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-        pnlTartagliaLayout.setVerticalGroup(
-            pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTartagliaLayout.createSequentialGroup()
+        pnlSecanteLayout.setVerticalGroup(
+            pnlSecanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecanteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGroup(pnlSecanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(pnlSecanteLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlSecanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRaizSecante, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlSecanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtErrorSecante, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 35, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pnlFerrari.setBackground(new java.awt.Color(255, 255, 255));
         pnlFerrari.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pnlFerrari.setPreferredSize(new java.awt.Dimension(870, 150));
 
-        jLabel4.setText("Horner");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Ferrari");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel12.setText("Raiz:");
+
+        txtFerrari3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel13.setText("Raiz:");
+
+        txtFerrari2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel14.setText("Raiz:");
+
+        txtFerrari1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        txtFerrari4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel15.setText("Raiz:");
 
         javax.swing.GroupLayout pnlFerrariLayout = new javax.swing.GroupLayout(pnlFerrari);
         pnlFerrari.setLayout(pnlFerrariLayout);
@@ -162,22 +275,56 @@ public class InterfazMetodos extends javax.swing.JFrame {
             pnlFerrariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFerrariLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(825, Short.MAX_VALUE))
+                .addGroup(pnlFerrariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3)
+                    .addGroup(pnlFerrariLayout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtFerrari2))
+                    .addGroup(pnlFerrariLayout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtFerrari3))
+                    .addGroup(pnlFerrariLayout.createSequentialGroup()
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtFerrari1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlFerrariLayout.createSequentialGroup()
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtFerrari4)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlFerrariLayout.setVerticalGroup(
             pnlFerrariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFerrariLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addComponent(jLabel3)
+                .addGap(9, 9, 9)
+                .addGroup(pnlFerrariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFerrari1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(pnlFerrariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFerrari2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(pnlFerrariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFerrari3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(pnlFerrariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFerrari4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnlHorner.setBackground(new java.awt.Color(255, 255, 255));
         pnlHorner.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pnlHorner.setPreferredSize(new java.awt.Dimension(870, 150));
 
-        jLabel3.setText("Ferrari");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Horner");
 
         javax.swing.GroupLayout pnlHornerLayout = new javax.swing.GroupLayout(pnlHorner);
         pnlHorner.setLayout(pnlHornerLayout);
@@ -185,21 +332,22 @@ public class InterfazMetodos extends javax.swing.JFrame {
             pnlHornerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHornerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(826, Short.MAX_VALUE))
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlHornerLayout.setVerticalGroup(
             pnlHornerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHornerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addComponent(jLabel4)
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         pnlMuller.setBackground(new java.awt.Color(255, 255, 255));
         pnlMuller.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pnlMuller.setPreferredSize(new java.awt.Dimension(870, 150));
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Muller");
 
         javax.swing.GroupLayout pnlMullerLayout = new javax.swing.GroupLayout(pnlMuller);
@@ -209,59 +357,57 @@ public class InterfazMetodos extends javax.swing.JFrame {
             .addGroup(pnlMullerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addContainerGap(830, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlMullerLayout.setVerticalGroup(
             pnlMullerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMullerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
-        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel13.setPreferredSize(new java.awt.Dimension(870, 150));
+        pnlBairstow.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBairstow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlBairstow.setPreferredSize(new java.awt.Dimension(870, 150));
 
-        pnlBairstow.setText("Bairstow");
+        lblBairstow.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblBairstow.setText("Bairstow");
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBairstowLayout = new javax.swing.GroupLayout(pnlBairstow);
+        pnlBairstow.setLayout(pnlBairstowLayout);
+        pnlBairstowLayout.setHorizontalGroup(
+            pnlBairstowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBairstowLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlBairstow)
-                .addContainerGap(817, Short.MAX_VALUE))
+                .addComponent(lblBairstow)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
+        pnlBairstowLayout.setVerticalGroup(
+            pnlBairstowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBairstowLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlBairstow)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addComponent(lblBairstow)
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlSecante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlTartaglia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlFerrari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlHorner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlMuller, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0))
+        javax.swing.GroupLayout pnlFuncionesLayout = new javax.swing.GroupLayout(pnlFunciones);
+        pnlFunciones.setLayout(pnlFuncionesLayout);
+        pnlFuncionesLayout.setHorizontalGroup(
+            pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlSecante, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)
+            .addComponent(pnlTartaglia, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(pnlHorner, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)
+            .addComponent(pnlFerrari, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)
+            .addComponent(pnlMuller, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)
+            .addComponent(pnlBairstow, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(pnlTartaglia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+        pnlFuncionesLayout.setVerticalGroup(
+            pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
                 .addComponent(pnlSecante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(pnlTartaglia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(pnlHorner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -269,11 +415,11 @@ public class InterfazMetodos extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(pnlMuller, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlBairstow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
 
-        jScrollPane1.setViewportView(jPanel2);
+        jScrollPane1.setViewportView(pnlFunciones);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -286,7 +432,7 @@ public class InterfazMetodos extends javax.swing.JFrame {
                     .addComponent(cmbFunciones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jToggleButton1)))
+                        .addComponent(btnCalcular)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -295,7 +441,7 @@ public class InterfazMetodos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(cmbFunciones, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jToggleButton1)
+                .addComponent(btnCalcular)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
@@ -304,14 +450,6 @@ public class InterfazMetodos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void desactivar() {
-        pnlBairstow.show(false);
-        pnlFerrari.show(false);
-        pnlHorner.show(false);
-        pnlMuller.show(false);
-        pnlSecante.show(false);
-        pnlTartaglia.show(false);
-    }
     private void cmbFuncionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFuncionesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbFuncionesActionPerformed
@@ -319,55 +457,139 @@ public class InterfazMetodos extends javax.swing.JFrame {
     private void cmbFuncionesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFuncionesItemStateChanged
     }//GEN-LAST:event_cmbFuncionesItemStateChanged
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    public void tartaglia() {
+        int grado;
+        double discriminante;
+        double[] coef;
+        String funcion = String.valueOf(cmbFunciones.getSelectedItem());
+        List<Object> raices;
+        Tartaglia t = new Tartaglia();
+        grado = eva.gradoMayor(funcion);
+        coef = eva.obtenerCoeficientes(grado, funcion);
+        discriminante = t.calcularDiscriminante(coef[1], coef[2], coef[3]);
+        raices = t.calcularRaices(discriminante);
+
+        System.out.println(Arrays.toString(coef));
+        txtTartaglia1.setText(raices.toArray()[0].toString());
+        txtTartaglia2.setText(raices.toArray()[1].toString());
+        txtTartaglia3.setText(raices.toArray()[2].toString());
+        txtDicriminante.setText(String.valueOf(discriminante));
+
+    }
+    
+    public void secante(){
+        DefaultTableModel l = new DefaultTableModel();
+        s.setFuncion(String.valueOf(" " + cmbFunciones.getSelectedItem()).replaceAll("x", "*x").replaceAll(" [*]x", " x").replaceFirst(" ", ""));
+        l.setRowCount(0);
+        l = s.n();
+        jTable1.setModel(l);
+        txtRaizSecante.setText(jTable1.getValueAt(jTable1.getRowCount()-1, 2).toString());
+        txtErrorSecante.setText(jTable1.getValueAt(jTable1.getRowCount()-1, 3).toString());
+        System.out.println(String.valueOf(" " + cmbFunciones.getSelectedItem()).replaceAll("x", "*x").replaceAll(" [*]x", " x").replaceFirst(" ", ""));
+    }
+    
+    public void setExtremosSecante(double n1,double n2){
+        s.setX0(n1);
+        s.setX1(n2);
+    }
+    
+    public void ferrari(){
+        int grado;
+        double[] coef;
+        Ferrari f = new Ferrari();
+        String funcion = String.valueOf(cmbFunciones.getSelectedItem());
+        List<Double> raices;
+        
+        grado = eva.gradoMayor(funcion);
+        coef = eva.obtenerCoeficientes(grado, funcion);
+        System.out.println(Arrays.toString(coef));
+        raices = f.ferrari(coef[1],coef[2], coef[3], coef[4]);
+        txtFerrari1.setText(String.valueOf(raices.toArray()[0]));
+        txtFerrari2.setText(String.valueOf(raices.toArray()[1]));
+        txtFerrari3.setText(String.valueOf(raices.toArray()[2]));
+        txtFerrari4.setText(String.valueOf(raices.toArray()[3]));
+    }
+    
+    public void activar(int[] opcion) {
+        for (int i : opcion) {
+            switch (i) {
+                case 1:
+                    pnlSecante.show(true);
+                    secante();
+                    break;
+                case 2:
+                    pnlTartaglia.show(true);
+                    tartaglia();
+                    break;
+                case 3:
+                    pnlFerrari.show(true);
+                    ferrari();
+                    break;
+                case 4:
+                    pnlHorner.show(true);
+                    break;
+                case 5:
+                    pnlMuller.show(true);
+                    break;
+                case 6:
+                    pnlBairstow.show(true);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "ERROR");
+            }
+        }
+    }
+
+    public void desactivar() {
+        pnlBairstow.show(false);
+        pnlFerrari.show(false);
+        pnlHorner.show(false);
+        pnlMuller.show(false);
+        pnlTartaglia.show(false);
+        pnlSecante.show(false);
+    }
+
+    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        desactivar();
         switch (cmbFunciones.getSelectedIndex()) {
             case 1:
+                activar(new int[]{2, 4, 5, 6});
+                break;
             case 2:
-                pnlBairstow.show(true);
-                pnlFerrari.show(false);
-                pnlHorner.show(true);
-                pnlMuller.show(true);
-                pnlSecante.show(false);
-                pnlTartaglia.show(true);
+                activar(new int[]{2, 4, 5, 6});
                 break;
             case 3:
+                activar(new int[]{3, 4, 5, 6});
+                break;
             case 4:
-                pnlBairstow.show(true);
-                pnlFerrari.show(true);
-                pnlHorner.show(true);
-                pnlMuller.show(true);
-                pnlSecante.show(false);
-                pnlTartaglia.show(false);
+                activar(new int[]{3, 4, 5, 6});
                 break;
             case 5:
+                activar(new int[]{1, 4, 5, 6});
+                setExtremosSecante(0, 1);
+                break;
             case 6:
-                pnlBairstow.show(true);
-                pnlFerrari.show(false);
-                pnlHorner.show(true);
-                pnlMuller.show(true);
-                pnlSecante.show(true);
-                pnlTartaglia.show(false);
+                activar(new int[]{1, 4, 5, 6});
+                setExtremosSecante(-2.9, -2.5);
                 break;
             case 7:
+                activar(new int[]{1, 5});
+                break;
             case 8:
+                activar(new int[]{1, 5});
+                break;
             case 9:
-                pnlBairstow.show(false);
-                pnlFerrari.show(false);
-                pnlHorner.show(false);
-                pnlMuller.show(true);
-                pnlSecante.show(true);
-                pnlTartaglia.show(false);
+                activar(new int[]{1, 5});
                 break;
             case 10:
-                pnlBairstow.show(false);
-                pnlFerrari.show(false);
-                pnlHorner.show(false);
-                pnlMuller.show(false);
-                pnlSecante.show(true);
-                pnlTartaglia.show(false);
+                activar(new int[]{10});
+                
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Elija una funcion");
                 break;
         }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_btnCalcularActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,16 +605,24 @@ public class InterfazMetodos extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfazMetodos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazMetodos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfazMetodos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazMetodos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfazMetodos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazMetodos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfazMetodos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazMetodos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -405,27 +635,45 @@ public class InterfazMetodos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnCalcular;
     private javax.swing.JComboBox<String> cmbFunciones;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JLabel pnlBairstow;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblBairstow;
+    private javax.swing.JPanel pnlBairstow;
     private javax.swing.JPanel pnlFerrari;
+    private javax.swing.JPanel pnlFunciones;
     private javax.swing.JPanel pnlHorner;
     private javax.swing.JPanel pnlMuller;
     private javax.swing.JPanel pnlSecante;
     private javax.swing.JPanel pnlTartaglia;
+    private javax.swing.JTextField txtDicriminante;
+    private javax.swing.JTextField txtErrorSecante;
+    private javax.swing.JTextField txtFerrari1;
+    private javax.swing.JTextField txtFerrari2;
+    private javax.swing.JTextField txtFerrari3;
+    private javax.swing.JTextField txtFerrari4;
+    private javax.swing.JTextField txtRaizSecante;
+    private javax.swing.JTextField txtTartaglia1;
+    private javax.swing.JTextField txtTartaglia2;
+    private javax.swing.JTextField txtTartaglia3;
     // End of variables declaration//GEN-END:variables
 }
