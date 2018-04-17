@@ -56,16 +56,16 @@ public class Bairstow {
             eas = Math.abs(ds / s) * 100;
             this.r0 = this.r;
             this.s0 = this.s;
-            //System.out.println("b1 " + b1 + "bo " + b0 + "c1 " + c1 + "c2 " + c2 + "c3 " + c3);
-            //System.out.println(r + " " + s);
-            System.out.println(eas + " " + ear);
         } while (ear > tolerancia || eas > tolerancia);
-
+        if((Math.pow(r, 2.0) + (4 * s))<0){
+            System.out.println(this.r/2 +" + "+ Math.sqrt(-(Math.pow(r, 2.0) + (4 * s)))/ 2 +"i");    
+            System.out.println(this.r/2 +" - "+ Math.sqrt(-(Math.pow(r, 2.0) + (4 * s)))/ 2 +"i");    
+        }else{
         x1 = (this.r + Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
         x2 = (this.r - Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
+        }
+        
         this.grado = this.grado - 2;
-        System.out.println(x1);
-        System.out.println(x2);
         coefmenor = divisiónSintetica(divisiónSintetica(coeficientes, x1), x2);
 
         if (this.grado == 2) {
