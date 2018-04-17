@@ -20,6 +20,8 @@ public class Evaluador {
     public Evaluador() {
         jep.addStandardFunctions();
         jep.addStandardConstants();
+        jep.addComplex();
+        jep.setImplicitMul(true);
     }
 
     public double Evaluar(double valor, String funcion) {
@@ -93,7 +95,6 @@ public class Evaluador {
                 }
 
                 if (fl.trim().matches("\\d+x." + i) || fl.trim().matches("\\d+[.]\\d+x." + i)) {
-                    System.out.println(fl);
                     if (funcion.matches(".*- " + fl.trim().replace("^", "\\^") + ".*")) {
                         coef[grado - (i + 1)] = Double.parseDouble(fl.replaceAll("x." + i, "")) * (-1);
                     } else {

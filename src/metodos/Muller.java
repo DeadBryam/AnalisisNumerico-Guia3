@@ -5,6 +5,8 @@
  */
 package metodos;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author villa
@@ -68,7 +70,8 @@ public class Muller {
         return new double[]{a,b,c};
     }
     
-    public void calcularRaiz(){
+    public DefaultTableModel calcularRaiz(){
+        DefaultTableModel dtm = new DefaultTableModel(new Object[]{"X0","X1","X2","X3","ERROR"},0);
         double x3,d,error;
         
         do {            
@@ -79,11 +82,12 @@ public class Muller {
         }
         x3 = x2 - ((2*calcularCoeficientes()[2])/d);
         error = ev.calcularError(x3, x2);
-        System.out.println(x3 +" --- "+error);
+        dtm.addRow(new Object[]{x0,x1,x2,x3,error});
         x0 = x1;
         x1 = x2;
         x2 = x3;
         } while (Math.abs(error)>ev.tolenrancia);
-       
+    
+        return dtm;
     }
 }

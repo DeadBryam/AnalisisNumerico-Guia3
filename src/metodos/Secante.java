@@ -21,8 +21,14 @@ public class Secante {
     private String funcion;
     JEP jep = new JEP();
     Evaluador ev = new Evaluador();
-    
 
+    public Secante() {
+        jep.addComplex();
+        jep.setImplicitMul(true);
+        jep.addStandardConstants();
+        jep.addStandardFunctions();
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Getters y Setters"> 
     public String getFuncion() {
         return funcion;
@@ -58,10 +64,6 @@ public class Secante {
     }
 
     public double evaluar(double valor, String fx) {
-        if (funcion.contains("e")) {
-            jep.addVariable("e", Math.E);
-        }
-
         jep.addVariable("x", valor);
         jep.parseExpression(fx);
         return jep.getValue();
