@@ -16,18 +16,25 @@ public class Bairstow {
 
     int grado;
     double r, s, r0, s0, ear, eas;
-    Object[] raices;
     double[] bs, cs, coefmenor;
     Complex[] coefmenorc;
     final static double tolerancia = 0.05;
     Horner hor = new Horner();
+    Object[] raices2;
     boolean complex;
 
     public void setGrado(int grado) {
         this.grado = grado;
-        raices = new Object[grado];
     }
 
+    public Object[] getRaices2() {
+        return raices2;
+    }
+
+    public void setRaices2(Object[] raices2) {
+        this.raices2 = raices2;
+    }
+    
     public double[] calcularValores(double[] coeficientes) {
         double[] bb = new double[coeficientes.length];
         bb[0] = coeficientes[0];
@@ -40,6 +47,73 @@ public class Bairstow {
     }
 
     public Object[] bairstow(double r0, double s0, double[] coeficientes) {
+        Object[] raices = new Object[grado];
+        this.r0 = r0;
+        this.s0 = s0;
+        double dr, ds, d, dx, dy, b0, b1, c1, c2, c3;
+        do {
+            this.bs = encontrarValores(coeficientes, grado);
+            this.cs = encontrarValores(this.bs, grado);
+            b0 = this.bs[bs.length - 1];
+            b1 = this.bs[bs.length - 2];
+            c1 = cs[bs.length - 2];
+            c2 = cs[bs.length - 3];
+            c3 = cs[bs.length - 4];
+            d = (c2 * c2) - (c1 * c3);
+            dx = (-b1 * c2) - (-b0 * c3);
+            dy = (c2 * (-b0)) - (c1 * (-b1));
+            dr = dx / d;
+            ds = dy / d;
+            this.r = this.r0 + dr;
+            this.s = this.s0 + ds;
+
+            ear = Math.abs(dr / r) * 100;
+            eas = Math.abs(ds / s) * 100;
+            this.r0 = this.r;
+            this.s0 = this.s;
+        } while (ear > tolerancia || eas > tolerancia);
+
+        if ((Math.pow(r, 2.0) + (4 * s)) < 0) {
+            raices[0] = new Complex(this.r / 2, Math.sqrt(-(Math.pow(r, 2.0) + (4 * s))) / 2);
+            raices[1] = new Complex(this.r / 2, -Math.sqrt(-(Math.pow(r, 2.0) + (4 * s))) / 2);
+
+            Complex[] cc = new Complex[coeficientes.length];
+            for (int i = 0; i < coeficientes.length; i++) {
+                cc[i] = new Complex(coeficientes[i], 0);
+            }
+            complex = true;
+            coefmenorc = divisiónSinteticaImaginaria(divisiónSinteticaImaginaria(cc, (Complex) raices[0]), (Complex) raices[1]);
+        } else {
+            raices[0] = (this.r + Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
+            raices[1] = (this.r - Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
+            complex = false;
+            coefmenor = divisiónSinteticaReal(divisiónSinteticaReal(coeficientes, Double.parseDouble(raices[0].toString())), Double.parseDouble(raices[1].toString()));
+        }
+        this.grado = this.grado - 2;
+
+        if (this.grado >= 3) {
+            setRaices2(bairstow2(r0, s0, coeficientes, grado+2));
+        } else if (this.grado == 2) {
+            if (Math.pow(r, 2.0) + (4 * s) > 0) {
+                raices[2] = (r + Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
+                raices[3] = (r - Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
+            } else {
+                raices[2] = new Complex(this.r / 2, Math.sqrt(-(Math.pow(r, 2.0) + (4 * s))) / 2);
+                raices[3] = new Complex(this.r / 2, -Math.sqrt(-(Math.pow(r, 2.0) + (4 * s))) / 2);
+            }
+        } else if (this.grado == 1) {
+            if (complex) {
+                raices[2] = -coefmenorc[1].getEntera() / coefmenorc[0].getEntera();
+            } else {
+                raices[2] = -(coefmenor[1]) / coefmenor[0];
+            }
+        }
+
+        return raices;
+    }
+
+    public Object[] bairstow2(double r0, double s0, double[] coeficientes,int grado) {
+        Object[] raices = new Object[grado];
         this.r0 = r0;
         this.s0 = s0;
         double dr, ds, d, dx, dy, b0, b1, c1, c2, c3;
@@ -103,11 +177,7 @@ public class Bairstow {
 
         return raices;
     }
-
-    public Object[] segunda(double r0, double s0, double[] coeficientes) {
-        return bairstow(r0, s0, coeficientes);
-    }
-
+    
     public double[] encontrarValores(double[] coeficientes, int gradoFuncion) {
         double[] bn = new double[coeficientes.length];
         bn[gradoFuncion] = coeficientes[0];

@@ -631,78 +631,85 @@ public class InterfazMetodos extends javax.swing.JFrame {
         txtDicriminante.setText(String.valueOf(discriminante));
 
     }
-    
-    public void secante(){
+
+    public void secante() {
         Secante s = new Secante();
         s.setX0(Double.parseDouble(txtMin.getText()));
         s.setX1(Double.parseDouble(txtMax.getText()));
         DefaultTableModel l = new DefaultTableModel();
-        if(cmbFunciones.getSelectedIndex()  == 5 || cmbFunciones.getSelectedIndex()  == 6){
-             s.setFuncion(String.valueOf(" " + cmbFunciones.getSelectedItem()).replaceAll("x", "*x").replaceAll(" [*]x", " x").replaceFirst(" ", ""));
-        }else if(cmbFunciones.getSelectedIndex()  == 7 || cmbFunciones.getSelectedIndex()  == 8 || cmbFunciones.getSelectedIndex()  == 9 || cmbFunciones.getSelectedIndex()  == 10){
+        if (cmbFunciones.getSelectedIndex() == 5 || cmbFunciones.getSelectedIndex() == 6) {
+            s.setFuncion(String.valueOf(" " + cmbFunciones.getSelectedItem()).replaceAll("x", "*x").replaceAll(" [*]x", " x").replaceFirst(" ", ""));
+        } else if (cmbFunciones.getSelectedIndex() == 7 || cmbFunciones.getSelectedIndex() == 8 || cmbFunciones.getSelectedIndex() == 9 || cmbFunciones.getSelectedIndex() == 10) {
             s.setFuncion(String.valueOf(cmbFunciones.getSelectedItem()));
         }
         l.setRowCount(0);
         l = s.n();
         tblSecante.setModel(l);
-        txtRaizSecante.setText(tblSecante.getValueAt(tblSecante.getRowCount()-1, 2).toString());
-        txtErrorSecante.setText(tblSecante.getValueAt(tblSecante.getRowCount()-1, 3).toString());
+        txtRaizSecante.setText(tblSecante.getValueAt(tblSecante.getRowCount() - 1, 2).toString());
+        txtErrorSecante.setText(tblSecante.getValueAt(tblSecante.getRowCount() - 1, 3).toString());
     }
-    
-    public void setExtremos(double n1,double n2){
+
+    public void setExtremos(double n1, double n2) {
         txtMin.setText(String.valueOf(n1));
         txtMax.setText(String.valueOf(n2));
     }
-    
-    public void ferrari(){
+
+    public void ferrari() {
         int grado;
         double[] coef;
         Ferrari f = new Ferrari();
         String funcion = String.valueOf(cmbFunciones.getSelectedItem());
         List<Double> raices;
-        
+
         grado = eva.gradoMayor(funcion);
         coef = eva.obtenerCoeficientes(grado, funcion);
-        raices = f.ferrari(coef[1],coef[2], coef[3], coef[4]);
+        raices = f.ferrari(coef[1], coef[2], coef[3], coef[4]);
         txtFerrari1.setText(String.valueOf(raices.toArray()[0]));
         txtFerrari2.setText(String.valueOf(raices.toArray()[1]));
         txtFerrari3.setText(String.valueOf(raices.toArray()[2]));
         txtFerrari4.setText(String.valueOf(raices.toArray()[3]));
     }
-    
-    public void horner(){
+
+    public void horner() {
         DefaultTableModel dtm = new DefaultTableModel();
         Horner h = new Horner();
         dtm = h.horner(Double.parseDouble(txtMin.getText()), eva.obtenerCoeficientes(eva.gradoMayor(cmbFunciones.getSelectedItem().toString()), cmbFunciones.getSelectedItem().toString()));
         tblHorner.setModel(dtm);
-        txtRaizHorner.setText(tblHorner.getValueAt(tblHorner.getRowCount()-1, 1).toString());
-        txtErrorHorner.setText(tblHorner.getValueAt(tblHorner.getRowCount()-1, 2).toString());
+        txtRaizHorner.setText(tblHorner.getValueAt(tblHorner.getRowCount() - 1, 1).toString());
+        txtErrorHorner.setText(tblHorner.getValueAt(tblHorner.getRowCount() - 1, 2).toString());
     }
-    
-    public void muller(){
+
+    public void muller() {
         Muller m = new Muller();
         m.setFuncion(cmbFunciones.getSelectedItem().toString());
         m.setX0(Double.parseDouble(txtMin.getText()));
         m.setX1(Double.parseDouble(txtMax.getText()));
-        m.setX2(Double.parseDouble(txtMax.getText())+0.5);
+        m.setX2(Double.parseDouble(txtMax.getText()) + 0.5);
         tblMuller.setModel(m.calcularRaiz());
-        txtRaizMuller.setText(tblMuller.getValueAt(tblMuller.getRowCount()-1, 3).toString());
-        txtErrorMuller.setText(tblMuller.getValueAt(tblMuller.getRowCount()-1, 4).toString());
+        txtRaizMuller.setText(tblMuller.getValueAt(tblMuller.getRowCount() - 1, 3).toString());
+        txtErrorMuller.setText(tblMuller.getValueAt(tblMuller.getRowCount() - 1, 4).toString());
     }
-    
-    public void bairstow(){
-        String funcion = cmbFunciones.getSelectedItem().toString(),raices="Raices:\n";
+
+    public void bairstow() {
+        String funcion = cmbFunciones.getSelectedItem().toString(), raices = "Raices:\n";
         Bairstow b = new Bairstow();
         b.setGrado(eva.gradoMayor(funcion));
         Object[] bair = b.bairstow(Double.parseDouble(txtMinB.getText()), Double.parseDouble(txtMinB.getText()), eva.obtenerCoeficientes(eva.gradoMayor(funcion), funcion));
         for (Object ob : bair) {
-        if(ob!=null){
-            raices+=ob.toString()+"\n"; 
-        } 
+            if (ob != null) {
+                raices += ob.toString() + "\n";
+            }
         }
+        if (eva.gradoMayor(funcion) > 4) {
+                for (Object obj : b.getRaices2()) {
+                    if (obj != null) {
+                        raices += obj.toString() + "\n";
+                    }
+                }
+            }
         txtBairstow.setText(raices);
     }
-    
+
     public void activar(int[] opcion) {
         for (int i : opcion) {
             switch (i) {
