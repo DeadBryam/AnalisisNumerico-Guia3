@@ -5,6 +5,7 @@
  */
 package metodos;
 
+import extras.Complex;
 import java.util.Arrays;
 
 /**
@@ -14,10 +15,18 @@ import java.util.Arrays;
 public class Bairstow {
 
     int grado;
-    double r, s, r0, s0, ear, eas, x1, x2, x3, x4;
+    double r, s, r0, s0, ear, eas;
+    Object[] raices;
     double[] bs, cs, coefmenor;
+    Complex[] coefmenorc;
     final static double tolerancia = 0.05;
     Horner hor = new Horner();
+    boolean complex;
+
+    public void setGrado(int grado) {
+        this.grado = grado;
+        raices = new Object[grado];
+    }
 
     public double[] calcularValores(double[] coeficientes) {
         double[] bb = new double[coeficientes.length];
@@ -27,23 +36,21 @@ public class Bairstow {
         for (int i = 2; i <= grado; i++) {
             bb[i] = coeficientes[i] + (r0 * bb[i - 1]) + (s0 * bb[i - 2]);
         }
-        //System.out.println(Arrays.toString(bb));
         return bb;
     }
 
-    public void bairstow(double r0, double s0, double[] coeficientes, int grado) {
+    public Object[] bairstow(double r0, double s0, double[] coeficientes) {
         this.r0 = r0;
         this.s0 = s0;
-        this.grado = grado;
         double dr, ds, d, dx, dy, b0, b1, c1, c2, c3;
         do {
             this.bs = encontrarValores(coeficientes, grado);
             this.cs = encontrarValores(this.bs, grado);
             b0 = this.bs[bs.length - 1];
             b1 = this.bs[bs.length - 2];
-            c1 = cs[bs.length-2];
-            c2 = cs[bs.length-3];
-            c3 = cs[bs.length-4];
+            c1 = cs[bs.length - 2];
+            c2 = cs[bs.length - 3];
+            c3 = cs[bs.length - 4];
             d = (c2 * c2) - (c1 * c3);
             dx = (-b1 * c2) - (-b0 * c3);
             dy = (c2 * (-b0)) - (c1 * (-b1));
@@ -57,26 +64,48 @@ public class Bairstow {
             this.r0 = this.r;
             this.s0 = this.s;
         } while (ear > tolerancia || eas > tolerancia);
-        if((Math.pow(r, 2.0) + (4 * s))<0){
-            System.out.println(this.r/2 +" + "+ Math.sqrt(-(Math.pow(r, 2.0) + (4 * s)))/ 2 +"i");    
-            System.out.println(this.r/2 +" - "+ Math.sqrt(-(Math.pow(r, 2.0) + (4 * s)))/ 2 +"i");    
-        }else{
-        x1 = (this.r + Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
-        x2 = (this.r - Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
-        }
-        
-        this.grado = this.grado - 2;
-        coefmenor = divisiónSintetica(divisiónSintetica(coeficientes, x1), x2);
 
-        if (this.grado == 2) {
-            x3 = (r + Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
-            System.out.println(x3);
-            x4 = (r - Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
-            System.out.println(x4);
-        } else if (this.grado == 1) {
-            x3 = (coefmenor[1]) / coefmenor[0];
-            System.out.println(x3);
+        if ((Math.pow(r, 2.0) + (4 * s)) < 0) {
+            raices[0] = new Complex(this.r / 2, Math.sqrt(-(Math.pow(r, 2.0) + (4 * s))) / 2);
+            raices[1] = new Complex(this.r / 2, -Math.sqrt(-(Math.pow(r, 2.0) + (4 * s))) / 2);
+
+            Complex[] cc = new Complex[coeficientes.length];
+            for (int i = 0; i < coeficientes.length; i++) {
+                cc[i] = new Complex(coeficientes[i], 0);
+            }
+            complex = true;
+            coefmenorc = divisiónSinteticaImaginaria(divisiónSinteticaImaginaria(cc, (Complex) raices[0]), (Complex) raices[1]);
+        } else {
+            raices[0] = (this.r + Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
+            raices[1] = (this.r - Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
+            complex = false;
+            coefmenor = divisiónSinteticaReal(divisiónSinteticaReal(coeficientes, Double.parseDouble(raices[0].toString())), Double.parseDouble(raices[1].toString()));
         }
+        this.grado = this.grado - 2;
+
+        if (this.grado >= 3) {
+            
+        } else if (this.grado == 2) {
+            if (Math.pow(r, 2.0) + (4 * s) > 0) {
+                raices[2] = (r + Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
+                raices[3] = (r - Math.sqrt(Math.pow(r, 2.0) + (4 * s))) / 2;
+            } else {
+                raices[2] = new Complex(this.r / 2, Math.sqrt(-(Math.pow(r, 2.0) + (4 * s))) / 2);
+                raices[3] = new Complex(this.r / 2, -Math.sqrt(-(Math.pow(r, 2.0) + (4 * s))) / 2);
+            }
+        } else if (this.grado == 1) {
+            if (complex) {
+                raices[2] = -coefmenorc[1].getEntera() / coefmenorc[0].getEntera();
+            } else {
+                raices[2] = -(coefmenor[1]) / coefmenor[0];
+            }
+        }
+
+        return raices;
+    }
+
+    public Object[] segunda(double r0, double s0, double[] coeficientes) {
+        return bairstow(r0, s0, coeficientes);
     }
 
     public double[] encontrarValores(double[] coeficientes, int gradoFuncion) {
@@ -84,20 +113,29 @@ public class Bairstow {
         bn[gradoFuncion] = coeficientes[0];
         bn[gradoFuncion - 1] = coeficientes[1] + (r0 * bn[gradoFuncion]);
         for (int i = 2; i <= gradoFuncion; i++) {
-            bn[gradoFuncion - i] = coeficientes[i] + (r0 * bn[gradoFuncion - (i-1)]) + (s0 * bn[gradoFuncion - (i - 2)]);
+            bn[gradoFuncion - i] = coeficientes[i] + (r0 * bn[gradoFuncion - (i - 1)]) + (s0 * bn[gradoFuncion - (i - 2)]);
         }
         return invertirVector(bn);
     }
 
-    public double[] divisiónSintetica(double[] coeficientes, double x1) {
-        double R, S;
+    public double[] divisiónSinteticaReal(double[] coeficientes, double x1) {
         double[] resultados1 = new double[coeficientes.length];
         double[] resultados2 = new double[coeficientes.length];
         resultados2[0] = coeficientes[0];
-        resultados1[0] = coeficientes[0] * x1;
         for (int i = 1; i < coeficientes.length; i++) {
             resultados1[i] = resultados2[i - 1] * x1;
             resultados2[i] = coeficientes[i] + resultados1[i];
+        }
+        return resultados2;
+    }
+
+    public Complex[] divisiónSinteticaImaginaria(Complex[] coeficientes, Complex x1) {
+        Complex[] resultados1 = new Complex[coeficientes.length];
+        Complex[] resultados2 = new Complex[coeficientes.length];
+        resultados2[0] = coeficientes[0];
+        for (int i = 1; i < coeficientes.length; i++) {
+            resultados1[i] = x1.mult(resultados2[i - 1]);
+            resultados2[i] = resultados1[i].add(coeficientes[i]);
         }
         return resultados2;
     }

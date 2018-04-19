@@ -57,8 +57,8 @@ public class Tartaglia {
         x2 = ((P + Q) / -2) - (this.a / 3);
         x3 = ((P + Q) / -2) - (this.a / 3);
         raices.add(String.valueOf(x1));
-        raices.add(x3 + " + " + Math.abs(((P + Q) / 2 * Math.sqrt(3))) + "i");
-        raices.add(x3 + " - " + Math.abs(((P + Q) / 2 * Math.sqrt(3))) + "i");
+        raices.add(x3 + " + " + (Math.abs(((P - Q) * Math.sqrt(3)))) / 2 + "i");
+        raices.add(x3 + " - " + (Math.abs(((P - Q) * Math.sqrt(3))))/2 + "i");
 
         return raices;
     }

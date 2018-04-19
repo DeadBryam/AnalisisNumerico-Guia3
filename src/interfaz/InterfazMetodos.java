@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import metodos.Bairstow;
 import metodos.Evaluador;
 import metodos.Ferrari;
 import metodos.Horner;
@@ -64,7 +65,7 @@ public class InterfazMetodos extends javax.swing.JFrame {
         txtRaizSecante = new javax.swing.JTextField();
         txtErrorSecante = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSecante = new javax.swing.JTable();
         pnlFerrari = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -82,7 +83,7 @@ public class InterfazMetodos extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         txtErrorHorner = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblHorner = new javax.swing.JTable();
         pnlMuller = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -90,20 +91,17 @@ public class InterfazMetodos extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         txtErrorMuller = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblMuller = new javax.swing.JTable();
         pnlBairstow = new javax.swing.JPanel();
         lblBairstow = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        txtBairstow1 = new javax.swing.JTextField();
-        txtBairstow2 = new javax.swing.JTextField();
-        jLabel23 = new javax.swing.JLabel();
-        txtBairstow4 = new javax.swing.JTextField();
-        txtBairstow3 = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtBairstow = new javax.swing.JTextArea();
         jLabel16 = new javax.swing.JLabel();
         txtMin = new javax.swing.JTextField();
         txtMax = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        txtMinB = new javax.swing.JTextField();
+        txtMaxB = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 255, 102));
@@ -135,21 +133,25 @@ public class InterfazMetodos extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Raiz:");
 
+        txtTartaglia1.setEditable(false);
         txtTartaglia1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Raiz:");
 
+        txtTartaglia2.setEditable(false);
         txtTartaglia2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Raiz:");
 
+        txtTartaglia3.setEditable(false);
         txtTartaglia3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setText("Discriminante: ");
 
+        txtDicriminante.setEditable(false);
         txtDicriminante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout pnlTartagliaLayout = new javax.swing.GroupLayout(pnlTartaglia);
@@ -184,16 +186,17 @@ public class InterfazMetodos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTartaglia1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDicriminante, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDicriminante, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTartaglia1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTartaglia2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTartaglia2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlTartagliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,13 +217,16 @@ public class InterfazMetodos extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Error:");
 
+        txtRaizSecante.setEditable(false);
         txtRaizSecante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
+        txtErrorSecante.setEditable(false);
         txtErrorSecante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jTable1.setModel(new DefaultTableModel()
+        tblSecante.setModel(new DefaultTableModel()
         );
-        jScrollPane3.setViewportView(jTable1);
+        tblSecante.setEnabled(false);
+        jScrollPane3.setViewportView(tblSecante);
 
         javax.swing.GroupLayout pnlSecanteLayout = new javax.swing.GroupLayout(pnlSecante);
         pnlSecante.setLayout(pnlSecanteLayout);
@@ -272,6 +278,7 @@ public class InterfazMetodos extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setText("Raiz:");
 
+        txtFerrari3.setEditable(false);
         txtFerrari3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtFerrari3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,13 +289,16 @@ public class InterfazMetodos extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel13.setText("Raiz:");
 
+        txtFerrari2.setEditable(false);
         txtFerrari2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setText("Raiz:");
 
+        txtFerrari1.setEditable(false);
         txtFerrari1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
+        txtFerrari4.setEditable(false);
         txtFerrari4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -357,15 +367,18 @@ public class InterfazMetodos extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel17.setText("Raiz:");
 
+        txtRaizHorner.setEditable(false);
         txtRaizHorner.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel18.setText("Error:");
 
+        txtErrorHorner.setEditable(false);
         txtErrorHorner.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jTable2.setModel(new DefaultTableModel());
-        jScrollPane2.setViewportView(jTable2);
+        tblHorner.setModel(new DefaultTableModel());
+        tblHorner.setEnabled(false);
+        jScrollPane2.setViewportView(tblHorner);
 
         javax.swing.GroupLayout pnlHornerLayout = new javax.swing.GroupLayout(pnlHorner);
         pnlHorner.setLayout(pnlHornerLayout);
@@ -416,15 +429,18 @@ public class InterfazMetodos extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel19.setText("Raiz:");
 
+        txtRaizMuller.setEditable(false);
         txtRaizMuller.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel20.setText("Error:");
 
+        txtErrorMuller.setEditable(false);
         txtErrorMuller.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jTable3.setModel(new DefaultTableModel());
-        jScrollPane4.setViewportView(jTable3);
+        tblMuller.setModel(new DefaultTableModel());
+        tblMuller.setEnabled(false);
+        jScrollPane4.setViewportView(tblMuller);
 
         javax.swing.GroupLayout pnlMullerLayout = new javax.swing.GroupLayout(pnlMuller);
         pnlMuller.setLayout(pnlMullerLayout);
@@ -472,30 +488,11 @@ public class InterfazMetodos extends javax.swing.JFrame {
         lblBairstow.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblBairstow.setText("Bairstow");
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel21.setText("Raiz:");
-
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel22.setText("Raiz:");
-
-        txtBairstow1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-
-        txtBairstow2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel23.setText("Raiz:");
-
-        txtBairstow4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-
-        txtBairstow3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtBairstow3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBairstow3ActionPerformed(evt);
-            }
-        });
-
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel24.setText("Raiz:");
+        txtBairstow.setEditable(false);
+        txtBairstow.setColumns(20);
+        txtBairstow.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtBairstow.setRows(5);
+        jScrollPane5.setViewportView(txtBairstow);
 
         javax.swing.GroupLayout pnlBairstowLayout = new javax.swing.GroupLayout(pnlBairstow);
         pnlBairstow.setLayout(pnlBairstowLayout);
@@ -504,53 +501,20 @@ public class InterfazMetodos extends javax.swing.JFrame {
             .addGroup(pnlBairstowLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlBairstowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBairstow)
+                    .addComponent(jScrollPane5)
                     .addGroup(pnlBairstowLayout.createSequentialGroup()
-                        .addGroup(pnlBairstowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pnlBairstowLayout.createSequentialGroup()
-                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(txtBairstow2))
-                            .addGroup(pnlBairstowLayout.createSequentialGroup()
-                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(txtBairstow1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(30, 30, 30)
-                        .addGroup(pnlBairstowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBairstowLayout.createSequentialGroup()
-                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(txtBairstow4, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlBairstowLayout.createSequentialGroup()
-                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(txtBairstow3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblBairstow)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlBairstowLayout.setVerticalGroup(
             pnlBairstowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBairstowLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblBairstow)
-                .addGap(18, 18, 18)
-                .addGroup(pnlBairstowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBairstowLayout.createSequentialGroup()
-                        .addGroup(pnlBairstowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBairstow1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlBairstowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtBairstow2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlBairstowLayout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(pnlBairstowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBairstow4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlBairstowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtBairstow3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnlFuncionesLayout = new javax.swing.GroupLayout(pnlFunciones);
@@ -586,9 +550,20 @@ public class InterfazMetodos extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setText("Limites:");
 
+        txtMin.setEditable(false);
         txtMin.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
+        txtMax.setEditable(false);
         txtMax.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel21.setText("Valores incales para Bairstow:");
+
+        txtMinB.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtMinB.setText("-2");
+
+        txtMaxB.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtMaxB.setText("-2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -604,6 +579,12 @@ public class InterfazMetodos extends javax.swing.JFrame {
                         .addComponent(txtMin, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtMax, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(118, 118, 118)
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtMinB, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtMaxB, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cmbFunciones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -619,7 +600,11 @@ public class InterfazMetodos extends javax.swing.JFrame {
                     .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(txtMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel21)
+                        .addComponent(txtMinB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtMaxB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
@@ -659,9 +644,9 @@ public class InterfazMetodos extends javax.swing.JFrame {
         }
         l.setRowCount(0);
         l = s.n();
-        jTable1.setModel(l);
-        txtRaizSecante.setText(jTable1.getValueAt(jTable1.getRowCount()-1, 2).toString());
-        txtErrorSecante.setText(jTable1.getValueAt(jTable1.getRowCount()-1, 3).toString());
+        tblSecante.setModel(l);
+        txtRaizSecante.setText(tblSecante.getValueAt(tblSecante.getRowCount()-1, 2).toString());
+        txtErrorSecante.setText(tblSecante.getValueAt(tblSecante.getRowCount()-1, 3).toString());
     }
     
     public void setExtremos(double n1,double n2){
@@ -689,9 +674,9 @@ public class InterfazMetodos extends javax.swing.JFrame {
         DefaultTableModel dtm = new DefaultTableModel();
         Horner h = new Horner();
         dtm = h.horner(Double.parseDouble(txtMin.getText()), eva.obtenerCoeficientes(eva.gradoMayor(cmbFunciones.getSelectedItem().toString()), cmbFunciones.getSelectedItem().toString()));
-        jTable2.setModel(dtm);
-        txtRaizHorner.setText(jTable2.getValueAt(jTable2.getRowCount()-1, 1).toString());
-        txtErrorHorner.setText(jTable2.getValueAt(jTable2.getRowCount()-1, 2).toString());
+        tblHorner.setModel(dtm);
+        txtRaizHorner.setText(tblHorner.getValueAt(tblHorner.getRowCount()-1, 1).toString());
+        txtErrorHorner.setText(tblHorner.getValueAt(tblHorner.getRowCount()-1, 2).toString());
     }
     
     public void muller(){
@@ -700,13 +685,22 @@ public class InterfazMetodos extends javax.swing.JFrame {
         m.setX0(Double.parseDouble(txtMin.getText()));
         m.setX1(Double.parseDouble(txtMax.getText()));
         m.setX2(Double.parseDouble(txtMax.getText())+0.5);
-        jTable3.setModel(m.calcularRaiz());
-        txtRaizMuller.setText(jTable3.getValueAt(jTable3.getRowCount()-1, 3).toString());
-        txtErrorMuller.setText(jTable3.getValueAt(jTable3.getRowCount()-1, 4).toString());
+        tblMuller.setModel(m.calcularRaiz());
+        txtRaizMuller.setText(tblMuller.getValueAt(tblMuller.getRowCount()-1, 3).toString());
+        txtErrorMuller.setText(tblMuller.getValueAt(tblMuller.getRowCount()-1, 4).toString());
     }
     
     public void bairstow(){
-        
+        String funcion = cmbFunciones.getSelectedItem().toString(),raices="Raices:\n";
+        Bairstow b = new Bairstow();
+        b.setGrado(eva.gradoMayor(funcion));
+        Object[] bair = b.bairstow(Double.parseDouble(txtMinB.getText()), Double.parseDouble(txtMinB.getText()), eva.obtenerCoeficientes(eva.gradoMayor(funcion), funcion));
+        for (Object ob : bair) {
+        if(ob!=null){
+            raices+=ob.toString()+"\n"; 
+        } 
+        }
+        txtBairstow.setText(raices);
     }
     
     public void activar(int[] opcion) {
@@ -804,10 +798,6 @@ public class InterfazMetodos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFerrari3ActionPerformed
 
-    private void txtBairstow3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBairstow3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBairstow3ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -868,9 +858,6 @@ public class InterfazMetodos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -882,9 +869,7 @@ public class InterfazMetodos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel lblBairstow;
     private javax.swing.JPanel pnlBairstow;
     private javax.swing.JPanel pnlFerrari;
@@ -893,10 +878,10 @@ public class InterfazMetodos extends javax.swing.JFrame {
     private javax.swing.JPanel pnlMuller;
     private javax.swing.JPanel pnlSecante;
     private javax.swing.JPanel pnlTartaglia;
-    private javax.swing.JTextField txtBairstow1;
-    private javax.swing.JTextField txtBairstow2;
-    private javax.swing.JTextField txtBairstow3;
-    private javax.swing.JTextField txtBairstow4;
+    private javax.swing.JTable tblHorner;
+    private javax.swing.JTable tblMuller;
+    private javax.swing.JTable tblSecante;
+    private javax.swing.JTextArea txtBairstow;
     private javax.swing.JTextField txtDicriminante;
     private javax.swing.JTextField txtErrorHorner;
     private javax.swing.JTextField txtErrorMuller;
@@ -906,7 +891,9 @@ public class InterfazMetodos extends javax.swing.JFrame {
     private javax.swing.JTextField txtFerrari3;
     private javax.swing.JTextField txtFerrari4;
     private javax.swing.JTextField txtMax;
+    private javax.swing.JTextField txtMaxB;
     private javax.swing.JTextField txtMin;
+    private javax.swing.JTextField txtMinB;
     private javax.swing.JTextField txtRaizHorner;
     private javax.swing.JTextField txtRaizMuller;
     private javax.swing.JTextField txtRaizSecante;

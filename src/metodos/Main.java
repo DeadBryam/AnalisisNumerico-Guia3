@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 
 
+
 /**
  *
  * @author doratt
@@ -18,7 +19,9 @@ public class Main {
     
     public static void main(String[] args) {
         Bairstow bair = new Bairstow();
-        bair.bairstow(-1, -1, new double[]{1, -1.1, 2.3, 0.5,3.3}, 4);
+        bair.setGrado(3);
+        Object[] bairstow = bair.bairstow(-2, -2, new double[]{1, 0, 3, -1});
+        System.out.println(Arrays.toString(bairstow));
     }
     
     
